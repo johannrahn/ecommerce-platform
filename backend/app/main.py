@@ -1,4 +1,5 @@
 import logging
+import os
 
 from fastapi import FastAPI
 
@@ -41,9 +42,12 @@ def create_app() -> FastAPI:
 
     from fastapi.middleware.cors import CORSMiddleware
 
+    cors_origins_env = os.getenv("CORS_ORIGINS", "*")
+    cors_origins = [o.strip() for o in cors_origins_env.split(",")] if cors_origins_env != "*" else ["*"]
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=cors_origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
