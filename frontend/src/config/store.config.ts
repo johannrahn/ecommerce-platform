@@ -1,7 +1,7 @@
 export const storeConfig = {
   name: 'ESSENCE',
-  tagline: 'Premium Fragrances',
-  description: 'Discover your signature scent',
+  tagline: 'Maison de Parfum',
+  description: 'Rare fragrances. Unapologetic luxury.',
 
   logo: '/logo.svg',
   favicon: '/favicon.ico',
@@ -14,8 +14,8 @@ export const storeConfig = {
   },
 
   contact: {
-    email: 'hello@essence-perfumes.com',
-    phone: '+1 (555) 123-4567',
+    email: 'hello@essence-maison.com',
+    phone: '+1 (800) 555-0199',
   },
 
   social: {
@@ -23,9 +23,9 @@ export const storeConfig = {
     twitter: 'https://twitter.com/essence',
   },
 
-  heroTitle: 'Find Your Signature Scent',
-  heroSubtitle: 'Explore our curated collection of premium fragrances',
-  footerText: '\u00a9 2026 ESSENCE. All rights reserved.',
+  heroTitle: 'Wear Your Obsession',
+  heroSubtitle: 'Ultra-rare fragrances. Hand-selected from the world\'s finest perfume houses. Created for those who refuse the ordinary.',
+  footerText: '© 2026 ESSENCE Maison de Parfum. All rights reserved.',
 } as const
 
 export type StoreConfig = typeof storeConfig

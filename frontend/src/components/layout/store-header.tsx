@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Search, User, Menu, LogOut, Package, UserCircle } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -16,10 +17,22 @@ import { useUIStore } from '@/stores/ui.store'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 export function StoreHeader() {
+  // Announcement bar cycling messages
+  const announcements = [
+    'Complimentary worldwide shipping on orders over $150',
+    'Small-batch fragrances · Limited stock available',
+    'Authenticity guaranteed on every bottle',
+  ]
   const user = useAuthStore((s) => s.user)
   const token = useAuthStore((s) => s.token)
   const logout = useLogout()
   const { mobileMenuOpen, setMobileMenu } = useUIStore()
+  const [announcementIdx, setAnnouncementIdx] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => setAnnouncementIdx(i => (i + 1) % announcements.length), 4000)
+    return () => clearInterval(id)
+  }, [announcements.length])
 
   const navLinks = (
     <>
@@ -30,7 +43,16 @@ export function StoreHeader() {
   )
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50">
+      {/* Announcement bar */}
+      <div className="bg-[hsl(var(--primary))] py-2 text-center">
+        <p className="text-[11px] font-light uppercase tracking-[0.25em] text-[hsl(var(--primary-foreground))]/60 transition-all">
+          {announcements[announcementIdx]}
+        </p>
+      </div>
+
+      {/* Main header */}
+      <div className="bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between md:h-20">
         {/* Mobile menu */}
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenu}>
@@ -107,6 +129,7 @@ export function StoreHeader() {
             </Button>
           )}
         </div>
+      </div>
       </div>
     </header>
   )

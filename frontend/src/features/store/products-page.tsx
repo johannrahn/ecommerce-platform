@@ -25,32 +25,62 @@ export function ProductsPage() {
   })
 
   return (
-    <div className="container py-10">
-      <h1 className="mb-8 font-serif text-3xl font-semibold">Products</h1>
+    <div>
+      {/* Cinematic header with video and fade-out */}
+      <div className="relative h-[38vh] min-h-[220px] overflow-hidden bg-black">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover opacity-45"
+        >
+          <source src="/Deseo_un_video_de_fondo_para_una_tienda_de_perfume_04b6afeb76.mp4" type="video/mp4" />
+        </video>
 
-      <div className="mb-8 space-y-4">
-        <SearchBar value={search} onChange={(v) => { setSearch(v); setPage(1) }} />
-        {categories && (
-          <CategoryFilter
-            categories={categories.filter((c) => c.is_active)}
-            selected={categoryId}
-            onSelect={(id) => { setCategoryId(id); setPage(1) }}
-          />
-        )}
+        {/* Fading overlays — creates smooth transition into the page below */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
+
+        {/* Header text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+          <p className="text-[10px] uppercase tracking-[0.5em] text-white/40">ESSENCE Maison</p>
+          <h1 className="mt-3 font-serif text-4xl font-light tracking-wide text-white md:text-6xl">
+            The Collection
+          </h1>
+          <div className="mx-auto mt-4 h-px w-10 bg-[hsl(var(--accent))]/60" />
+          <p className="mt-3 text-sm font-light text-white/50">
+            {data?.total ? `${data.total} exclusive fragrances` : 'Discover rare fragrances'}
+          </p>
+        </div>
       </div>
 
-      {isLoading ? (
-        <ProductGridSkeleton count={DEFAULT_PAGE_SIZE} />
-      ) : data?.items.length ? (
-        <>
-          <ProductGrid products={data.items} />
-          <div className="mt-10">
-            <PaginationControls page={data.page} pages={data.pages} onPageChange={setPage} />
-          </div>
-        </>
-      ) : (
-        <EmptyState icon={Search} title="No products found" description="Try adjusting your search or filters" />
-      )}
+      {/* Filters and grid */}
+      <div className="container py-10">
+        <div className="mb-8 space-y-4">
+          <SearchBar value={search} onChange={(v) => { setSearch(v); setPage(1) }} />
+          {categories && (
+            <CategoryFilter
+              categories={categories.filter((c) => c.is_active)}
+              selected={categoryId}
+              onSelect={(id) => { setCategoryId(id); setPage(1) }}
+            />
+          )}
+        </div>
+
+        {isLoading ? (
+          <ProductGridSkeleton count={DEFAULT_PAGE_SIZE} />
+        ) : data?.items.length ? (
+          <>
+            <ProductGrid products={data.items} />
+            <div className="mt-10">
+              <PaginationControls page={data.page} pages={data.pages} onPageChange={setPage} />
+            </div>
+          </>
+        ) : (
+          <EmptyState icon={Search} title="No products found" description="Try adjusting your search or filters" />
+        )}
+      </div>
     </div>
   )
 }

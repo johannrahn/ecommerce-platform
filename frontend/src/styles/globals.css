@@ -10,20 +10,20 @@
     --card-foreground: 20 14.3% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
-    --primary: 24 9.8% 10%;
-    --primary-foreground: 60 9.1% 97.8%;
+    --primary: 20 10% 8%;
+    --primary-foreground: 48 12% 96%;
     --secondary: 30 20% 95%;
     --secondary-foreground: 24 9.8% 10%;
     --muted: 30 10% 96%;
     --muted-foreground: 25 5.3% 44.7%;
-    --accent: 36 50% 62%;
-    --accent-foreground: 24 9.8% 10%;
+    --accent: 38 72% 54%;
+    --accent-foreground: 20 10% 8%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
     --border: 30 10% 90%;
     --input: 30 10% 90%;
-    --ring: 36 50% 62%;
-    --radius: 0.5rem;
+    --ring: 38 72% 54%;
+    --radius: 0.75rem;
   }
 
   html {
@@ -39,5 +39,71 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Luxury scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--accent) / 0.4);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent) / 0.7);
+  }
+}
+
+/* ── Animations ──────────────────────────────────────────────────── */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes expand-line {
+  from { width: 0; opacity: 0; }
+  to   { width: 3rem; opacity: 1; }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 28s linear infinite;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 1s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--accent) / 0.6) 0%,
+      hsl(var(--accent)) 40%,
+      hsl(var(--accent) / 0.6) 100%
+    );
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .group-hover\:scale-108:hover {
+    transform: scale(1.08);
   }
 }
