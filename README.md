@@ -1,5 +1,8 @@
 # ESSENCE E-Commerce Platform
 
+[![Backend Tests](https://github.com/johannrahn/ecommerce-platform/actions/workflows/backend-tests.yml/badge.svg)](https://github.com/johannrahn/ecommerce-platform/actions/workflows/backend-tests.yml)
+[![Frontend CI](https://github.com/johannrahn/ecommerce-platform/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/johannrahn/ecommerce-platform/actions/workflows/frontend-ci.yml)
+
 ## Overview
 ESSENCE is a full-stack e-commerce application built around a perfume store demo. It combines a FastAPI backend, a React storefront, an admin dashboard, and a PostgreSQL database.
 

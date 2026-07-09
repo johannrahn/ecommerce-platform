@@ -20,4 +20,13 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // shadcn/ui generated files intentionally co-locate variant/type helpers
+    // with their component — standard shadcn pattern, not an app code smell.
+    files: ['src/components/ui/**/*.{ts,tsx}', 'src/hooks/use-toast.ts'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
 ])
